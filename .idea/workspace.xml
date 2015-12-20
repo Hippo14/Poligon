@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1be8465f-0d72-4aa8-9720-8072bfbb042b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/narzedzia/RozkladPoissona.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Poligon/main/SMO.class" afterPath="$PROJECT_DIR$/out/production/Poligon/main/SMO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/SMO.java" afterPath="$PROJECT_DIR$/src/main/SMO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/narzedzia/Wykresy.java" afterPath="$PROJECT_DIR$/src/main/narzedzia/Wykresy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wykres.txt" afterPath="$PROJECT_DIR$/wykres.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wykres1.txt" afterPath="$PROJECT_DIR$/wykres1.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wykres2.txt" afterPath="$PROJECT_DIR$/wykres2.txt" />
@@ -38,8 +34,8 @@
       <file leaf-file-name="SMO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/SMO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.1737757">
-              <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.5971564">
+              <caret line="139" column="70" selection-start-line="139" selection-start-column="70" selection-end-line="139" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -121,8 +117,8 @@
         <option value="$PROJECT_DIR$/src/main/narzedzia/Kolejka.java" />
         <option value="$PROJECT_DIR$/src/main/narzedzia/Kanaly.java" />
         <option value="$PROJECT_DIR$/src/main/narzedzia/Wykresy.java" />
-        <option value="$PROJECT_DIR$/src/main/SMO.java" />
         <option value="$PROJECT_DIR$/src/main/narzedzia/RozkladPoissona.java" />
+        <option value="$PROJECT_DIR$/src/main/SMO.java" />
       </list>
     </option>
   </component>
@@ -678,16 +674,16 @@
       <option name="number" value="Default" />
       <updated>1450615099322</updated>
       <workItem from="1450615102132" duration="12310000" />
-      <workItem from="1450639117012" duration="1180000" />
+      <workItem from="1450639117012" duration="1572000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13490000" />
+    <option name="totallyTimeSpent" value="13882000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -696,7 +692,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296146" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296146" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18514532" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -722,13 +718,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/SMO.java</url>
-          <line>65</line>
+          <line>68</line>
           <properties />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/SMO.java</url>
-          <line>111</line>
+          <line>116</line>
           <properties />
           <option name="timeStamp" value="15" />
         </line-breakpoint>
@@ -853,8 +849,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/SMO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1737757">
-          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.5971564">
+          <caret line="139" column="70" selection-start-line="139" selection-start-column="70" selection-end-line="139" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

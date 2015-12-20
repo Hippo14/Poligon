@@ -27,6 +27,8 @@ public class SMO {
 
     private Wykresy wykresy;
 
+    private RozkladPoissona rozkladPoissona;
+
     public int liczba_zgloszen_przybylych = 0;
     public int liczba_zgloszen_obsluzonych = 0;
 
@@ -55,6 +57,7 @@ public class SMO {
         this.kanaly = new Kanaly(this.K);
         this.kolejka = new Kolejka(this.L);
         this.tablicaZdarzen = new TablicaZdarzen(this.K);
+        this.rozkladPoissona = new RozkladPoissona();
     }
 
     public void simulate() {
@@ -82,7 +85,9 @@ public class SMO {
                         Zdarzenie temp = this.kolejka.usun();
 
                         // Okreslenie momentu konca obslugi zdarzenia przez kanal obslugi
-                        double koniecObslugi = round(this.t + (1.0 / this.mi), 2);
+                        //double koniecObslugi = round(this.t + (1.0 / this.mi), 2);
+                        double deltaMi = rozkladPoissona.mi(this.mi);
+                        double koniecObslugi = round(this.t + deltaMi, 2);
 
                         // Dodaj do kanału
                         int id = this.kanaly.dodaj(temp, koniecObslugi);
@@ -130,7 +135,9 @@ public class SMO {
                     Zdarzenie temp = this.kolejka.usun();
 
                     // Określenie momentu końca obsługi zdarzenia przez kanał obsługi
-                    double koniecObslugi = round(this.t + (1.0 / this.mi), 2);
+                    //double koniecObslugi = round(this.t + (1.0 / this.mi), 2);
+                    double deltaMi = rozkladPoissona.mi(this.mi);
+                    double koniecObslugi = round(this.t + deltaMi, 2);
 
                     this.kanaly.dodaj(id, temp, koniecObslugi);
 
@@ -147,8 +154,10 @@ public class SMO {
     }
 
     private void ustalenieMomentuPrzyjscia() {
-        //
-        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, round((this.tablicaZdarzen.getTypI().getCzas() + (1.0) / this.lambda), 2)));
+        //this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, round((this.tablicaZdarzen.getTypI().getCzas() + (1.0) / this.lambda), 2)));
+        double deltaLambda = rozkladPoissona.lambda(this.lambda);
+        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, round( (this.tablicaZdarzen.getTypI().getCzas() + deltaLambda), 2 ) ));
+
         this.liczba_zgloszen_przybylych++;
 
         this.rysujWykresy();
