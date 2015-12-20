@@ -33,8 +33,10 @@ public class Wykresy {
         this.wykres5.close();
     }
 
-    public void dodajDoWykresu(double lambda, double mi) {
-        wykres.println("lambda: " + lambda + " mi: " + mi);
+    public void dodajDoWykresu(double lambda, double mi, int K) {
+        wykres.println("lambda: " + lambda);
+        wykres.println("mi: " + mi);
+        wykres.println("liczba kanałów: " + K);
     }
 
     public void dodajDoWykresu1(double czas) {

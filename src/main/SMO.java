@@ -3,6 +3,7 @@ package main;
 import main.narzedzia.*;
 
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 /**
@@ -45,7 +46,7 @@ public class SMO {
 
         try {
             this.wykresy = new Wykresy();
-            this.wykresy.dodajDoWykresu(this.lambda, this.mi);
+            this.wykresy.dodajDoWykresu(this.lambda, this.mi, this.K);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Błąd otwarcia pliku!");
@@ -58,7 +59,7 @@ public class SMO {
 
     public void simulate() {
         // Tworzymy pierwsze zdarzenie
-        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, 1.0 / this.lambda));
+        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, round(1.0 / this.lambda, 2)));
         this.wykresy.dodajDoWykresu1(this.tablicaZdarzen.getTypI().getCzas());
         this.liczba_zgloszen_przybylych++;
 
@@ -81,7 +82,7 @@ public class SMO {
                         Zdarzenie temp = this.kolejka.usun();
 
                         // Okreslenie momentu konca obslugi zdarzenia przez kanal obslugi
-                        double koniecObslugi = this.t + (1.0 / this.mi);
+                        double koniecObslugi = round(this.t + (1.0 / this.mi), 2);
 
                         // Dodaj do kanału
                         int id = this.kanaly.dodaj(temp, koniecObslugi);
@@ -129,7 +130,7 @@ public class SMO {
                     Zdarzenie temp = this.kolejka.usun();
 
                     // Określenie momentu końca obsługi zdarzenia przez kanał obsługi
-                    double koniecObslugi = this.t + (1.0 / this.mi);
+                    double koniecObslugi = round(this.t + (1.0 / this.mi), 2);
 
                     this.kanaly.dodaj(id, temp, koniecObslugi);
 
@@ -147,7 +148,7 @@ public class SMO {
 
     private void ustalenieMomentuPrzyjscia() {
         //
-        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, (this.tablicaZdarzen.getTypI().getCzas() + (1.0) / this.lambda)));
+        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, round((this.tablicaZdarzen.getTypI().getCzas() + (1.0) / this.lambda), 2)));
         this.liczba_zgloszen_przybylych++;
 
         this.rysujWykresy();
@@ -168,6 +169,12 @@ public class SMO {
 
     private void close() {
         this.wykresy.close();
+    }
+
+    public static double round(double d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(d);
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.doubleValue();
     }
 
 }
