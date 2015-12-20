@@ -8,6 +8,7 @@ import java.io.PrintWriter;
  */
 public class Wykresy {
 
+    private PrintWriter wykres;
     private PrintWriter wykres1;    // Przyjście zgłoszenia do systemu
     private PrintWriter wykres2;    // Zajętość kolejki
     private PrintWriter wykres3;    // Zajętość kanału
@@ -15,6 +16,7 @@ public class Wykresy {
     private PrintWriter wykres5;    // Liczba zgłoszeń obsłużonych przez system
 
     public Wykresy() throws FileNotFoundException {
+        this.wykres = new PrintWriter("wykres.txt");
         this.wykres1 = new PrintWriter("wykres1.txt");
         this.wykres2 = new PrintWriter("wykres2.txt");
         this.wykres3 = new PrintWriter("wykres3.txt");
@@ -23,6 +25,7 @@ public class Wykresy {
     }
 
     public void close() {
+        this.wykres.close();
         this.wykres1.close();
         this.wykres2.close();
         this.wykres3.close();
@@ -30,23 +33,27 @@ public class Wykresy {
         this.wykres5.close();
     }
 
+    public void dodajDoWykresu(double lambda, double mi) {
+        wykres.println("lambda: " + lambda + " mi: " + mi);
+    }
+
     public void dodajDoWykresu1(double czas) {
         wykres1.println(czas);
     }
 
     public void dodajDoWykresu2(int count, double t) {
-        wykres2.println(count + " " + t);
+        wykres2.println(t + "\t" + count);
     }
 
     public void dodajDoWykresu3(int count, double t) {
-        wykres3.println(count + " " + t);
+        wykres3.println(t + "\t" + count);
     }
 
     public void dodajDoWykresu4(int liczba_zgloszen_przybylych, double v) {
-        wykres4.println(liczba_zgloszen_przybylych + " " + v);
+        wykres4.println(v + "\t" + liczba_zgloszen_przybylych);
     }
 
     public void dodajDoWykresu5(int liczba_zgloszen_obsluzonych, double v) {
-        wykres5.println(liczba_zgloszen_obsluzonych + " " + v);
+        wykres5.println(v + "\t" + liczba_zgloszen_obsluzonych);
     }
 }

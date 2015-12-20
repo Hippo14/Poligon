@@ -38,13 +38,14 @@ public class SMO {
         this.mi = odczyt.nextDouble();
 
         this.L = 10;
-        this.T = 3;
-        this.K = 1;
+        this.T = 10;
+        this.K = 6;
 
         this.t = 0.0;
 
         try {
             this.wykresy = new Wykresy();
+            this.wykresy.dodajDoWykresu(this.lambda, this.mi);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Błąd otwarcia pliku!");
