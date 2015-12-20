@@ -1,1 +1,1 @@
-lambda: 15.0 mi: 5.0
+lambda: 3.0 mi: 2.0

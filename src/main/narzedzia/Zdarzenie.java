@@ -10,16 +10,16 @@ public class Zdarzenie {
 
     public Zdarzenie(int typ, double czas) {
         this.typ = typ;
-        this.czas = (czas * 100) / 100;
+        this.czas = czas;
     }
 
     public Zdarzenie(Zdarzenie minimum) {
         this.typ = minimum.getTyp();
-        this.czas = (minimum.getCzas() * 100) / 100;
+        this.czas = minimum.getCzas();
     }
 
     public double getCzas() {
-        return (czas * 100) / 100;
+        return czas;
     }
 
     public int getTyp() {
