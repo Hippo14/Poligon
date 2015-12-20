@@ -13,6 +13,11 @@ public class Zdarzenie {
         this.czas = czas;
     }
 
+    public Zdarzenie(Zdarzenie minimum) {
+        this.typ = minimum.getTyp();
+        this.czas = minimum.getCzas();
+    }
+
     public double getCzas() {
         return czas;
     }

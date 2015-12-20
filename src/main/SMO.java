@@ -1,8 +1,6 @@
 package main;
 
-import main.narzedzia.Kanal;
-import main.narzedzia.Wykresy;
-import main.narzedzia.Zdarzenie;
+import main.narzedzia.*;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -21,10 +19,9 @@ public class SMO {
     private double t;
     private int l;
 
-    private Zdarzenie[] tablica;
-    private Zdarzenie[] kolejka;
-
-    private Kanal[] kanaly;
+    private TablicaZdarzen tablicaZdarzen;
+    private Kolejka kolejka;
+    private Kanaly kanaly;
 
     private Zdarzenie minimum;
 
@@ -43,14 +40,10 @@ public class SMO {
 
         this.L = 10;
         this.T = 10;
-        this.K = 2;
+        this.K = 1;
 
         this.t = 0.0;
         this.l = 0;
-
-        this.kolejka = new Zdarzenie[L];
-        this.tablica = new Zdarzenie[this.K + 1];
-        this.kanaly = new Kanal[K];
 
         try {
             this.wykresy = new Wykresy();
@@ -59,91 +52,101 @@ public class SMO {
             System.out.println("Błąd otwarcia pliku!");
         }
 
-        //tworzenie obiektow symulujacych kanaly
-        for (int i = 0; i < K; i++)
-            this.kanaly[i] = new Kanal(i+1);
-
-        //wstawiamy nieskończoność do tablicy
-        for (int i = 0; i < tablica.length; i++)
-            tablica[i] = new Zdarzenie(0, Double.POSITIVE_INFINITY);
+        this.kanaly = new Kanaly(this.K);
+        this.kolejka = new Kolejka(this.L);
+        this.tablicaZdarzen = new TablicaZdarzen(this.K);
     }
 
     public void simulate() {
         // Tworzymy pierwsze zdarzenie
-        Zdarzenie zdarzenie = new Zdarzenie(1, 1.0/this.lambda);
+        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, 1.0/this.lambda));
         this.liczba_zgloszen_przybylych++;
-        this.tablica[0] = zdarzenie;
 
         while (t < T) {
             // Szukamy minimum w tablicy
-            this.minimum = minimum(tablica);
+            this.minimum = this.tablicaZdarzen.minimum();
 
             // Sprawdza czy zdarzenie jest typu I
             if (this.minimum.getTyp() == 1) {
+                this.t = this.minimum.getCzas();
+
                 // Czy kolejka jest pełna
                 if (l < L) {
                     // Dodaj zdarzenie do kolejki
+                    this.kolejka.dodaj(this.minimum);
 
                     // Kanał obsługi jest pusty
-                    if(czyPustyKanal()) {
+                    if(this.kanaly.czyPustyKanal()) {
                         // Przeniesienie zdarzenia z kolejki do kanalu obslugi (FIFO)
+                        Zdarzenie temp = this.kolejka.usun();
 
                         // Okreslenie momentu konca obslugi zdarzenia przez kanal obslugi
+                        double koniecObslugi = this.t + (1.0 / this.mi);
+
+                        // Dodaj do kanału
+                        int id = this.kanaly.dodaj(temp, koniecObslugi);
 
                         // Wstawienie zdarzenia typu II do tablicy zdarzen
+                        this.tablicaZdarzen.dodajDoTypuII(id, koniecObslugi);
 
                         // Ustalenie momentu przyjscia nastepnego zdarzenia
+                        ustalenieMomentuPrzyjscia();
                     }
                     else {
                         // Wszystkie kanały są zajęte, zostawiamy zgłoszenie w kolejce
 
                         // Ustalenie momentu przyjscia nastepnego zdarzenia
+                        ustalenieMomentuPrzyjscia();
                     }
                 }
                 else {
                     // Kolejka jest pełna
 
                     // Ustalenie momentu przyjscia nastepnego zdarzenia
+                    ustalenieMomentuPrzyjscia();
                 }
             }
             // Zdarzenie jest typu II
             else {
+                this.t = this.minimum.getCzas();
+
+                // Zwróc id kanału
+                int id = this.kanaly.getIdKanalu(this.minimum);
+                // Zwolnij kanał
+                this.kanaly.zwolnij(id);
+                this.liczba_zgloszen_obsluzonych++;
+
                 // Czy kolejka jest pusta
                 if (l == 0) {
                     // Wstaw INFINITY do tablicy zdarzeń typu II
+                    this.tablicaZdarzen.dodajDoTypuIINieskonczonosc(id);
 
                     // Ustalenie momentu przyjścia następnego zdarzenia
+                    ustalenieMomentuPrzyjscia();
                 }
                 else {
                     // Przeniesienie zdarzenia z kolejki do kanalu obslugi (FIFO)
+                    Zdarzenie temp = this.kolejka.usun();
 
                     // Określenie momentu końca obsługi zdarzenia przez kanał obsługi
+                    double koniecObslugi = this.t + (1.0 / this.mi);
+
+                    this.kanaly.dodaj(id, temp, koniecObslugi);
 
                     // Wstawienie zdarzenia typu II do tablicy zdarzeń
+                    this.tablicaZdarzen.dodajDoTypuII(id, koniecObslugi);
 
                     // Ustalenie momentu przyjścia następnego zdarzenia
+                    ustalenieMomentuPrzyjscia();
                 }
             }
         }
     }
 
-    private boolean czyPustyKanal() {
-        for (int i = 0; i < kanaly.length; i++) {
-            if (kanaly[i].getWolny()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private Zdarzenie minimum(Zdarzenie[] tablica) {
-        Zdarzenie wynik = tablica[0];
-        for (int i=1; i<tablica.length; i++) {
-            if (wynik.getCzas() > tablica[i].getCzas()) {
-                wynik = tablica[i];
-            }
-        }
-        return wynik;
+    private void ustalenieMomentuPrzyjscia() {
+        Zdarzenie temp = this.tablicaZdarzen.getTypI();
+        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, temp.getCzas() + (1.0 / this.lambda)));
+        this.liczba_zgloszen_przybylych++;
     }
 
 }
