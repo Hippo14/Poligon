@@ -17,7 +17,6 @@ public class SMO {
     private int K;
 
     private double t;
-    private int l;
 
     private TablicaZdarzen tablicaZdarzen;
     private Kolejka kolejka;
@@ -43,7 +42,6 @@ public class SMO {
         this.K = 1;
 
         this.t = 0.0;
-        this.l = 0;
 
         try {
             this.wykresy = new Wykresy();
@@ -71,7 +69,7 @@ public class SMO {
                 this.t = this.minimum.getCzas();
 
                 // Czy kolejka jest pełna
-                if (l < L) {
+                if (this.kolejka.getCount() < L) {
                     // Dodaj zdarzenie do kolejki
                     this.kolejka.dodaj(this.minimum);
 
@@ -117,7 +115,7 @@ public class SMO {
                 this.liczba_zgloszen_obsluzonych++;
 
                 // Czy kolejka jest pusta
-                if (l == 0) {
+                if (this.kolejka.getCount() == 0) {
                     // Wstaw INFINITY do tablicy zdarzeń typu II
                     this.tablicaZdarzen.dodajDoTypuIINieskonczonosc(id);
 

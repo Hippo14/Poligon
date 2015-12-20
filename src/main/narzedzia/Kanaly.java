@@ -52,7 +52,7 @@ public class Kanaly {
     }
 
     public void zwolnij(int id) {
-        this.kanaly[id + 1].zwolnij();
+        this.kanaly[id - 1].zwolnij();
     }
 
     public void dodaj(int i, Zdarzenie zdarzenie, double koniecObslugi) {
