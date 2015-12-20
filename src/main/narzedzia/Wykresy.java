@@ -30,5 +30,23 @@ public class Wykresy {
         this.wykres5.close();
     }
 
+    public void dodajDoWykresu1(double czas) {
+        wykres1.println(czas);
+    }
 
+    public void dodajDoWykresu2(int count, double t) {
+        wykres2.println(count + " " + t);
+    }
+
+    public void dodajDoWykresu3(int count, double t) {
+        wykres3.println(count + " " + t);
+    }
+
+    public void dodajDoWykresu4(int liczba_zgloszen_przybylych, double v) {
+        wykres4.println(liczba_zgloszen_przybylych + " " + v);
+    }
+
+    public void dodajDoWykresu5(int liczba_zgloszen_obsluzonych, double v) {
+        wykres5.println(liczba_zgloszen_obsluzonych + " " + v);
+    }
 }

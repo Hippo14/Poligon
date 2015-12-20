@@ -56,8 +56,19 @@ public class Kanaly {
     }
 
     public void dodaj(int i, Zdarzenie zdarzenie, double koniecObslugi) {
-        if (this.kanaly[i].getWolny()) {
-            this.kanaly[i].dodajZdarzenie(zdarzenie, koniecObslugi);
+        if (this.kanaly[i - 1].getWolny()) {
+            this.kanaly[i - 1].dodajZdarzenie(zdarzenie, koniecObslugi);
         }
+    }
+
+    public int getCount() {
+        int count = 0;
+
+        for (int i = 0; i < this.kanaly.length; i++) {
+            if (!this.kanaly[i].getWolny())
+                count++;
+        }
+
+        return count;
     }
 }

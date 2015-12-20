@@ -10,8 +10,8 @@ import java.util.Scanner;
  */
 public class SMO {
 
-    private int lambda;
-    private int mi;
+    private double lambda;
+    private double mi;
     private int L;
     private int T;
     private int K;
@@ -26,19 +26,19 @@ public class SMO {
 
     private Wykresy wykresy;
 
-    private int liczba_zgloszen_przybylych = 0;
-    private int liczba_zgloszen_obsluzonych = 0;
+    public int liczba_zgloszen_przybylych = 0;
+    public int liczba_zgloszen_obsluzonych = 0;
 
     public SMO() {
         Scanner odczyt = new Scanner(System.in);
         System.out.println("Podaj lambda: ");
-        this.lambda = Integer.parseInt(odczyt.nextLine());
+        this.lambda = odczyt.nextDouble();
 
         System.out.println("Podaj mi: ");
-        this.mi = Integer.parseInt(odczyt.nextLine());
+        this.mi = odczyt.nextDouble();
 
         this.L = 10;
-        this.T = 10;
+        this.T = 3;
         this.K = 1;
 
         this.t = 0.0;
@@ -57,7 +57,8 @@ public class SMO {
 
     public void simulate() {
         // Tworzymy pierwsze zdarzenie
-        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, 1.0/this.lambda));
+        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, 1.0 / this.lambda));
+        this.wykresy.dodajDoWykresu1(this.tablicaZdarzen.getTypI().getCzas());
         this.liczba_zgloszen_przybylych++;
 
         while (t < T) {
@@ -139,12 +140,33 @@ public class SMO {
                 }
             }
         }
+
+        this.close();
     }
 
     private void ustalenieMomentuPrzyjscia() {
-        Zdarzenie temp = this.tablicaZdarzen.getTypI();
-        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, temp.getCzas() + (1.0 / this.lambda)));
+        //
+        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, (this.tablicaZdarzen.getTypI().getCzas() + (1.0) / this.lambda)));
         this.liczba_zgloszen_przybylych++;
+
+        this.rysujWykresy();
+    }
+
+    private void rysujWykresy() {
+        // Dodanie do wykresu 1
+        this.wykresy.dodajDoWykresu1(this.tablicaZdarzen.getTypI().getCzas());
+        // Dodanie do wykresu 2
+        this.wykresy.dodajDoWykresu2(this.kolejka.getCount(), this.tablicaZdarzen.getTypI().getCzas());
+        // Dodanie do wykresu 3
+        this.wykresy.dodajDoWykresu3(this.kanaly.getCount(), this.tablicaZdarzen.getTypI().getCzas());
+        // Dodanie do wykresu 4 - zgłoszenia przybyłe
+        this.wykresy.dodajDoWykresu4(this.liczba_zgloszen_przybylych, this.tablicaZdarzen.getTypI().getCzas());
+        // Dodanie do wykresu 5 - Zgłoszenia obsłużone
+        this.wykresy.dodajDoWykresu5(this.liczba_zgloszen_obsluzonych, this.tablicaZdarzen.getTypI().getCzas());
+    }
+
+    private void close() {
+        this.wykresy.close();
     }
 
 }
