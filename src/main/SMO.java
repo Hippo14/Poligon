@@ -154,26 +154,35 @@ public class SMO {
     }
 
     private void ustalenieMomentuPrzyjscia() {
+        this.rysujWykresy();
+
         //this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, round((this.tablicaZdarzen.getTypI().getCzas() + (1.0) / this.lambda), 2)));
         double deltaLambda = rozkladPoissona.lambda(this.lambda);
         this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, round( (this.tablicaZdarzen.getTypI().getCzas() + deltaLambda), 2 ) ));
 
-        this.liczba_zgloszen_przybylych++;
+        int temp1 = (int) Math.floor(this.tablicaZdarzen.getTypI().getCzas());
+        int temp2 = (int) Math.floor(this.tablicaZdarzen.getTypI().getCzas() + deltaLambda);
 
-        this.rysujWykresy();
+        if   (temp1 != temp2) {
+            // Dodanie do wykresu 4 - zgłoszenia przybyłe
+            this.wykresy.dodajDoWykresu4(this.liczba_zgloszen_przybylych, this.tablicaZdarzen.getTypI().getCzas());
+            // Dodanie do wykresu 5 - Zgłoszenia obsłużone
+            this.wykresy.dodajDoWykresu5(this.liczba_zgloszen_obsluzonych, this.tablicaZdarzen.getTypI().getCzas());
+
+            this.liczba_zgloszen_przybylych = 0;
+            this.liczba_zgloszen_obsluzonych = 0;
+        }
+
+
+        this.liczba_zgloszen_przybylych++;
     }
 
     private void rysujWykresy() {
         // Dodanie do wykresu 1
         this.wykresy.dodajDoWykresu1(this.tablicaZdarzen.getTypI().getCzas());
-        // Dodanie do wykresu 2
-        this.wykresy.dodajDoWykresu2(this.kolejka.getCount(), this.tablicaZdarzen.getTypI().getCzas());
+
         // Dodanie do wykresu 3
         this.wykresy.dodajDoWykresu3(this.kanaly.getCount(), this.tablicaZdarzen.getTypI().getCzas());
-        // Dodanie do wykresu 4 - zgłoszenia przybyłe
-        this.wykresy.dodajDoWykresu4(this.liczba_zgloszen_przybylych, this.tablicaZdarzen.getTypI().getCzas());
-        // Dodanie do wykresu 5 - Zgłoszenia obsłużone
-        this.wykresy.dodajDoWykresu5(this.liczba_zgloszen_obsluzonych, this.tablicaZdarzen.getTypI().getCzas());
     }
 
     private void close() {

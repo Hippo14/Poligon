@@ -52,10 +52,10 @@ public class Wykresy {
     }
 
     public void dodajDoWykresu4(int liczba_zgloszen_przybylych, double v) {
-        wykres4.println(v + "\t" + liczba_zgloszen_przybylych);
+        wykres4.println(Math.floor(v) + "\t" + liczba_zgloszen_przybylych);
     }
 
     public void dodajDoWykresu5(int liczba_zgloszen_obsluzonych, double v) {
-        wykres5.println(v + "\t" + liczba_zgloszen_obsluzonych);
+        wykres5.println(Math.floor(v) + "\t" + liczba_zgloszen_obsluzonych);
     }
 }
