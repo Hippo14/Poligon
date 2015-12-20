@@ -39,7 +39,7 @@ public class SMO {
 
         this.L = 10;
         this.T = 10;
-        this.K = 6;
+        this.K = 1;
 
         this.t = 0.0;
 
@@ -58,7 +58,8 @@ public class SMO {
 
     public void simulate() {
         // Tworzymy pierwsze zdarzenie
-        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, 1.0 / this.lambda));
+        double czas = Math.floor( (1.0 / this.lambda) * 100 ) / 100;
+        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, czas));
         this.wykresy.dodajDoWykresu1(this.tablicaZdarzen.getTypI().getCzas());
         this.liczba_zgloszen_przybylych++;
 
@@ -82,6 +83,7 @@ public class SMO {
 
                         // Okreslenie momentu konca obslugi zdarzenia przez kanal obslugi
                         double koniecObslugi = this.t + (1.0 / this.mi);
+                        koniecObslugi = (koniecObslugi * 100) / 100;
 
                         // Dodaj do kanału
                         int id = this.kanaly.dodaj(temp, koniecObslugi);
@@ -130,6 +132,7 @@ public class SMO {
 
                     // Określenie momentu końca obsługi zdarzenia przez kanał obsługi
                     double koniecObslugi = this.t + (1.0 / this.mi);
+                    koniecObslugi = (koniecObslugi * 100) / 100;
 
                     this.kanaly.dodaj(id, temp, koniecObslugi);
 
@@ -147,7 +150,8 @@ public class SMO {
 
     private void ustalenieMomentuPrzyjscia() {
         //
-        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, (this.tablicaZdarzen.getTypI().getCzas() + (1.0) / this.lambda)));
+        double czas = Math.floor( (1.0 / this.lambda)  * 100 ) / 100;
+        this.tablicaZdarzen.dodajDoTypuI(new Zdarzenie(1, ( (this.tablicaZdarzen.getTypI().getCzas() * 100) / 100 + czas )));
         this.liczba_zgloszen_przybylych++;
 
         this.rysujWykresy();
